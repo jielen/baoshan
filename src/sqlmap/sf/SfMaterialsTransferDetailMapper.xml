@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.ufgov.zc.server.sf.dao.SfMaterialsTransferDetailMapper">
+	<typeAlias alias="elementCondition" type="com.ufgov.zc.common.system.dto.ElementConditionDto" />
+  <resultMap id="BaseResultMap" class="com.ufgov.zc.common.sf.model.SfMaterialsTransferDetail">
+    <result column="TRANSFER_ID" jdbcType="DECIMAL" property="transferId" />  
+    <result column="PROCESSING" jdbcType="VARCHAR" property="processing" />
+    <result column="PROCESSING_MAN" jdbcType="VARCHAR" property="processingMan" />
+    <result column="PROCESSING_DATE" jdbcType="DATE" property="processingDate" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />  
+    
+    <result column="MATERIAL_ID" jdbcType="DECIMAL" property="material.materialId" />
+    <result column="NAME" jdbcType="VARCHAR" property="material.name" />
+    <result column="QUANTITY" jdbcType="DECIMAL" property="material.quantity" />
+    <result column="QUANTITY2" jdbcType="DECIMAL" property="material.quantity2" />
+    <result column="UNIT" jdbcType="VARCHAR" property="material.unit" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="material.description" />
+    <result column="ENTRUST_ID" jdbcType="DECIMAL" property="material.entrustId" />
+    <result column="MATERIAL_TYPE" jdbcType="VARCHAR" property="material.materialType" />
+    <result column="QUANTITY3" jdbcType="VARCHAR" property="material.quantity3" />
+    <result column="BIANHAO" jdbcType="VARCHAR" property="material.bianhao" />
+    <result column="APPEND_MATERIAL_ID" jdbcType="DECIMAL" property="material.appendMaterialId" />
+    <result column="ATTACH_FILE" jdbcType="VARCHAR" property="material.attachFile" />
+    <result column="ATTACH_FILE_BLOBID" jdbcType="VARCHAR" property="material.attachFileBlobid" />
+    <result column="JIAN_HOU_CHULI_TYPE" jdbcType="VARCHAR" property="material.jianHouChuliType" />
+    <result column="SAVE_CONDITON" jdbcType="VARCHAR" property="material.saveConditon" />
+    <result column="REMARK" jdbcType="VARCHAR" property="material.remark" />
+    <result column="JIAN_HOU_STORE_TIME" jdbcType="DECIMAL" property="material.jianHouStoreTime" />
+    <result column="SAVE_ADDRESS" jdbcType="VARCHAR" property="material.saveAddress" />
+    <result column="BAR_CODE" jdbcType="VARCHAR" property="material.barCode" /> 
+    <result column="TQ_INFO" jdbcType="VARCHAR" property="material.tqInfo" /> 
+    <result column="TIQU_FILE" jdbcType="VARCHAR" property="material.tiquFile" />
+    <result column="TIQU_FILE_BLOBID" jdbcType="VARCHAR" property="material.tiquFileBlobid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRANSFER_ID, MATERIAL_ID, QUANTITY, UNIT, PROCESSING, PROCESSING_MAN, PROCESSING_DATE, 
+    REMARK, OUT_INFO_DETAIL_ID,QUANTITY3
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterClass="java.math.BigDecimal">
+    delete from SF_MATERIALS_TRANSFER_DETAIL
+    where TRANSFER_ID = #transferId:DECIMAL#
+  </delete>
+  <insert id="insert" parameterClass="com.ufgov.zc.common.sf.model.SfMaterialsTransferDetail">
+    insert into SF_MATERIALS_TRANSFER_DETAIL (TRANSFER_ID, MATERIAL_ID, QUANTITY, 
+      UNIT, PROCESSING, PROCESSING_MAN, PROCESSING_DATE, REMARK, OUT_INFO_DETAIL_ID,QUANTITY3
+      ) values (#transferId:DECIMAL#, #material.materialId:DECIMAL#, #material.quantity:DECIMAL#, 
+      #material.unit:VARCHAR#, #processing:VARCHAR#, #processingMan:VARCHAR#, 
+      #processingDate:DATE#, #material.remark:VARCHAR#, #outInfoDetailId:DECIMAL#,#material.quantity3#
+      )
+  </insert>
+  <select id="selectByPrimaryKey" parameterClass="java.math.BigDecimal" resultMap="BaseResultMap">
+    SELECT SF_MATERIALS_TRANSFER_DETAIL.TRANSFER_ID,  
+       SF_MATERIALS_TRANSFER_DETAIL.PROCESSING,
+       SF_MATERIALS_TRANSFER_DETAIL.PROCESSING_MAN,
+       SF_MATERIALS_TRANSFER_DETAIL.PROCESSING_DATE, 
+       SF_MATERIALS_TRANSFER_DETAIL.remark, 
+       SF_MATERIALS.MATERIAL_ID, SF_MATERIALS.NAME, SF_MATERIALS.QUANTITY, SF_MATERIALS.UNIT,
+       SF_MATERIALS.DESCRIPTION, SF_MATERIALS.ENTRUST_ID,SF_MATERIALS.QUANTITY2,SF_MATERIALS.QUANTITY3,
+       SF_MATERIALS.MATERIAL_TYPE,SF_MATERIALS.BIANHAO,SF_MATERIALS.APPEND_MATERIAL_ID, 
+    SF_MATERIALS.ATTACH_FILE, SF_MATERIALS.ATTACH_FILE_BLOBID, SF_MATERIALS.JIAN_HOU_CHULI_TYPE, 
+    SF_MATERIALS.SAVE_CONDITON, SF_MATERIALS.REMARK, SF_MATERIALS.JIAN_HOU_STORE_TIME, 
+    SF_MATERIALS.SAVE_ADDRESS, SF_MATERIALS.BAR_CODE,SF_MATERIALS.tq_info,
+    SF_MATERIALS.TIQU_FILE,SF_MATERIALS.TIQU_FILE_BLOBID
+  FROM SF_MATERIALS_TRANSFER_DETAIL, SF_MATERIALS
+ WHERE SF_MATERIALS_TRANSFER_DETAIL.MATERIAL_ID = SF_MATERIALS.MATERIAL_ID
+ 	   and SF_MATERIALS_TRANSFER_DETAIL.TRANSFER_ID = #transferId:DECIMAL#
+  </select>
+</sqlMap>
