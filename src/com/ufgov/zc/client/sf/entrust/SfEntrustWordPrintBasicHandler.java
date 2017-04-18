@@ -13,6 +13,7 @@ import java.util.Map;
 import com.ufgov.zc.client.common.AsOptionMeta;
 import com.ufgov.zc.client.datacache.AsValDataCache;
 import com.ufgov.zc.client.sf.util.SfBookmarkUtil;
+import com.ufgov.zc.client.sf.util.SfUtil;
 import com.ufgov.zc.client.util.ChangeRMB;
 import com.ufgov.zc.client.util.freemark.StringUtil;
 import com.ufgov.zc.client.util.freemark.WordHandlerAdapter;
@@ -20,6 +21,7 @@ import com.ufgov.zc.common.sf.model.SfChargeDetail;
 import com.ufgov.zc.common.sf.model.SfEntrust;
 import com.ufgov.zc.common.sf.model.SfEntrustor;
 import com.ufgov.zc.common.sf.model.SfJdTarget;
+import com.ufgov.zc.common.sf.model.SfJdjg;
 import com.ufgov.zc.common.sf.model.SfXysx;
 import com.ufgov.zc.common.system.constants.SfElementConstants;
 import com.ufgov.zc.common.util.EmpMeta;
@@ -232,7 +234,7 @@ public abstract class SfEntrustWordPrintBasicHandler  extends WordHandlerAdapter
 	}
 
 	protected void setJdjgInfo(Map<String, Object> dataMap, SfEntrust entrust) {
-	    String jgmc = AsOptionMeta.getOptVal(SfElementConstants.OPT_SF_JD_COMPANY_NAME);
+	    /*String jgmc = AsOptionMeta.getOptVal(SfElementConstants.OPT_SF_JD_COMPANY_NAME);
 	    dataMap.put("JGMC", StringUtil.freeMarkFillWordChar(jgmc));
 
 	    String jgxkz = AsOptionMeta.getOptVal(SfElementConstants.OPT_SF_JD_COMPANY_XKZ);
@@ -245,7 +247,22 @@ public abstract class SfEntrustWordPrintBasicHandler  extends WordHandlerAdapter
 	    dataMap.put("JGYB", StringUtil.freeMarkFillWordChar(jgyb));
 
 	    String jgdh = AsOptionMeta.getOptVal(SfElementConstants.OPT_SF_JD_COMPANY_TEL);
-	    dataMap.put("JGDH", StringUtil.freeMarkFillWordChar(jgdh));
+	    dataMap.put("JGDH", StringUtil.freeMarkFillWordChar(jgdh));*/
+		SfUtil su=new SfUtil();
+		SfJdjg jg=su.getJdjgInfo(entrust.getCoCode());
+		if(jg!=null){
+			dataMap.put("JGMC", StringUtil.freeMarkFillWordChar(jg.getName()));
+		    dataMap.put("XKZH", StringUtil.freeMarkFillWordChar(jg.getXkzh()));
+		    dataMap.put("JGDZ", StringUtil.freeMarkFillWordChar(jg.getAddress()));
+		    dataMap.put("JGYB", StringUtil.freeMarkFillWordChar(jg.getZip()));
+		    dataMap.put("JGDH", StringUtil.freeMarkFillWordChar(jg.getTel()));
+		}else{
+			dataMap.put("JGMC", StringUtil.freeMarkFillWordChar(""));
+		    dataMap.put("XKZH", StringUtil.freeMarkFillWordChar(""));
+		    dataMap.put("JGDZ", StringUtil.freeMarkFillWordChar(""));
+		    dataMap.put("JGYB", StringUtil.freeMarkFillWordChar(""));
+		    dataMap.put("JGDH", StringUtil.freeMarkFillWordChar(""));
+		}
 	    
 	}
 

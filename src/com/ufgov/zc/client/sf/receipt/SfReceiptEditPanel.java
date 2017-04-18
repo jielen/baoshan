@@ -986,6 +986,7 @@ protected void init() {
   protected void selectEntrust(SfEntrust entrust) {
 
     SfReceipt bill = (SfReceipt) listCursor.getCurrentObject();
+    
     if (entrust != null) {
 
       entrust=sfEntrustServiceDelegate.selectByPrimaryKey(entrust.getEntrustId(), requestMeta);
@@ -1000,7 +1001,8 @@ protected void init() {
     	  loadWord(fileId);
       } 
     }else{
-      if(bill.getEntrust()!=null && receiptType.getField().getSelectedAsVal()!=null && bill.getFileId() ==null){          
+      if(bill.getEntrust()!=null && receiptType.getField().getSelectedAsVal()!=null && bill.getFileId() ==null){    
+ 
         String fileId=getFileId(receiptType.getField().getSelectedAsVal().getValId());
         loadWord(fileId);
       }
